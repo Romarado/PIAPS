@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.168
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stanok", "Stanok\Stanok.csproj", "{4207CE5D-EAEE-47AF-82C3-8EE9D8287010}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StanokTests", "XUnitTestProject1\StanokTests.csproj", "{86A7C739-6858-4443-94F9-A4812065B69E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Operator", "Operator\Operator.csproj", "{71942EB7-5F34-499F-B137-17DD30C8859A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4207CE5D-EAEE-47AF-82C3-8EE9D8287010}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4207CE5D-EAEE-47AF-82C3-8EE9D8287010}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4207CE5D-EAEE-47AF-82C3-8EE9D8287010}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4207CE5D-EAEE-47AF-82C3-8EE9D8287010}.Release|Any CPU.Build.0 = Release|Any CPU
+		{86A7C739-6858-4443-94F9-A4812065B69E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{86A7C739-6858-4443-94F9-A4812065B69E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{86A7C739-6858-4443-94F9-A4812065B69E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{86A7C739-6858-4443-94F9-A4812065B69E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{71942EB7-5F34-499F-B137-17DD30C8859A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71942EB7-5F34-499F-B137-17DD30C8859A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71942EB7-5F34-499F-B137-17DD30C8859A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71942EB7-5F34-499F-B137-17DD30C8859A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3ACBA4B7-FBDD-4BE7-9F79-22B728C8356F}
+	EndGlobalSection
+EndGlobal

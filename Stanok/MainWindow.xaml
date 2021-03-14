@@ -1,0 +1,171 @@
+﻿<Window x:Class="Stanok.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Stanok"
+        xmlns:viewModel="clr-namespace:Stanok.ViewModel"
+        xmlns:converters="clr-namespace:Stanok.Converters"
+        d:DataContext="{d:DesignInstance Type={x:Type viewModel:MainViewModel}}"
+        mc:Ignorable="d"
+        Title="Станок" Height="480" Width="800">
+    <Window.Resources>
+        <converters:CheckBoxEnumConverter x:Key="CheckBoxEnumConverter"/>
+        <viewModel:StanokMode x:Key="modeAuto">0</viewModel:StanokMode>
+        <viewModel:StanokMode x:Key="modeManual">1</viewModel:StanokMode>
+        <viewModel:StanokMode x:Key="modeSettings">2</viewModel:StanokMode>
+        <viewModel:NetworkMode x:Key="modeServer">0</viewModel:NetworkMode>
+        <viewModel:NetworkMode x:Key="modeClient">1</viewModel:NetworkMode>
+        <Style TargetType="GroupBox">
+            <Setter Property="Margin" Value="5"/>
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="5"/>
+        </Style>
+        <Style TargetType="TextBlock">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="5"/>
+        </Style>
+        <Style TargetType="RadioButton">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="5"/>
+        </Style>
+        <Style TargetType="Slider">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Padding" Value="5 2"/>
+        </Style>
+    </Window.Resources>
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="3*"/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.ColumnSpan="2" Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="Управляющие клавиши: " FontWeight="Bold"/>
+            <TextBlock Grid.Column="1" Text="A - автоформат, Р - ручной, Н - настройка, П - пуск, Ш - шаг, С - стоп, К - конец работы" />
+        </Grid>
+        <GroupBox Header="Управление">
+            <Grid>
+                <Grid.Resources>
+                    <Style TargetType="Label" x:Key="labelRight">
+                        <Setter Property="HorizontalAlignment" Value="Right"/>
+                    </Style>
+                </Grid.Resources>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="40"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Label  Grid.Row="0" Grid.Column="0"  Content="Режим:"/>
+                <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.ColumnSpan="2">
+                    <RadioButton Content="Авто" 
+                                 IsChecked="{Binding Path=Instructions.Mode, Converter={StaticResource CheckBoxEnumConverter}, ConverterParameter={StaticResource modeAuto}}"/>
+                    <RadioButton Content="Ручной" 
+                                 IsChecked="{Binding Path=Instructions.Mode, Converter={StaticResource CheckBoxEnumConverter}, ConverterParameter={StaticResource modeManual}}"/>
+                    <RadioButton Content="Настройка" 
+                                 IsChecked="{Binding Path=Instructions.Mode, Converter={StaticResource CheckBoxEnumConverter}, ConverterParameter={StaticResource modeSettings}}"/>
+                </StackPanel>
+                <Label   Grid.Row="1" Grid.Column="0" Style="{StaticResource labelRight}" Content="X max:"/>
+                <TextBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding Instructions.MaxX}"/>
+                <Label   Grid.Row="1" Grid.Column="3" Content="см"/>
+                <Label   Grid.Row="2" Grid.Column="0" Style="{StaticResource labelRight}" Content="Y max:"/>
+                <TextBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding Instructions.MaxY}"/>
+                <Label   Grid.Row="2" Grid.Column="3" Content="см"/>
+                <Label   Grid.Row="3" Grid.Column="0" Style="{StaticResource labelRight}" Content="Z max:"/>
+                <TextBox Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding Instructions.MaxZ}"/>
+                <Label   Grid.Row="3" Grid.Column="3" Content="см"/>
+                <Label   Grid.Row="4" Grid.Column="0" Style="{StaticResource labelRight}" Content="Шаг:"/>
+                <TextBox Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding Instructions.Delay}"/>
+                <Label   Grid.Row="4" Grid.Column="3" Content="мс"/>
+
+                <Label   Grid.Row="5" Grid.ColumnSpan="4" Content="Текущее положение ножа:" FontWeight="SemiBold"/>
+
+                <Label     Grid.Row="6" Grid.Column="0" Style="{StaticResource labelRight}" Content="X:"/>
+                <TextBlock Grid.Row="6" Grid.Column="1" Text="{Binding Knife.X, StringFormat='{}{0:0.00}'}"/>
+                <Slider    Grid.Row="6" Grid.Column="2" Value="{Binding Knife.X}" Minimum="{Binding Knife.MinX}" Maximum="{Binding Knife.MaxX}" />
+
+                <Label     Grid.Row="7" Grid.Column="0" Style="{StaticResource labelRight}" Content="Y:"/>
+                <TextBlock Grid.Row="7" Grid.Column="1" Text="{Binding Knife.Y, StringFormat='{}{0:0.00}'}"/>
+                <Slider    Grid.Row="7" Grid.Column="2" Value="{Binding Knife.Y}" Minimum="{Binding Knife.MinY}" Maximum="{Binding Knife.MaxY}" />
+
+                <Label     Grid.Row="8" Grid.Column="0" Style="{StaticResource labelRight}" Content="Z:"/>
+                <TextBlock Grid.Row="8" Grid.Column="1" Text="{Binding Knife.Z, StringFormat='{}{0:0.00}'}"/>
+                <Slider    Grid.Row="8" Grid.Column="2" Value="{Binding Knife.Z}" Minimum="{Binding Knife.MinZ}" Maximum="{Binding Knife.MaxZ}" />
+
+                <Grid Grid.Row="10" Grid.ColumnSpan="4">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Button Grid.Column="0" Name="buttonStart" Content="Пуск" Click="buttonStart_Click"/>
+                    <Button Grid.Column="1" Name="buttonPause"  Content="Пауза" Click="buttonPause_Click"/>
+                    <Button Grid.Column="2" Name="buttonNextStep" Content="Шаг" Click="buttonNextStep_Click"/>
+                    <Button Grid.Column="3" Name="buttonStop" Content="Стоп" Click="buttonStop_Click"/>
+                </Grid>
+            </Grid>
+        </GroupBox>
+        <GroupBox Header="Сетевое взаимодействие" Grid.Row="1">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.ColumnSpan="5">
+                    <TextBlock Text="Роль:"/>
+                    <RadioButton Content="Станок" 
+                                 IsChecked="{Binding Path=Network.Mode, Converter={StaticResource CheckBoxEnumConverter}, ConverterParameter={StaticResource modeServer}}"/>
+                    <RadioButton Content="Пульт управления"
+                                 IsChecked="{Binding Path=Network.Mode, Converter={StaticResource CheckBoxEnumConverter}, ConverterParameter={StaticResource modeClient}}"/>
+                </StackPanel>
+                <TextBlock Grid.Row="1" Grid.Column="0" Text="IP:"/>
+                <TextBox   Grid.Row="1" Grid.Column="1" Text="{Binding Path=Network.Ip}"/>
+                <TextBlock Grid.Row="1" Grid.Column="2" Text="Порт:"/>
+                <TextBox   Grid.Row="1" Grid.Column="3" Width="40" Text="{Binding Path=Network.Port}"/>
+                <Button    Grid.Row="1" Grid.Column="4" Content="Подкл." Name="buttonConnect" Click="ButtonConnect_Click"/>
+            </Grid>
+        </GroupBox>
+        <GridSplitter Width="2" Grid.RowSpan="3" Margin="0,15,-1,8" />
+        <GroupBox Grid.Column="1" Header="Модель строгания" Grid.RowSpan="3">
+            <local:VisualComponent DataContext="{Binding Path=.}"/>
+        </GroupBox>
+    </Grid>
+</Window>
